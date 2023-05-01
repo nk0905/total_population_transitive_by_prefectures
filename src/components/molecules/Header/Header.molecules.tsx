@@ -1,7 +1,12 @@
 import React from 'react';
+import './Header.molecules.scss';
 
-const Header: React.FC = () => {
-  return <></>;
+export interface HeaderPropsType {
+  title: string;
+}
+
+const Header: React.FC<HeaderPropsType> = ({ title }) => {
+  return <header className="header">{title}</header>;
 };
 
 export default Header;
