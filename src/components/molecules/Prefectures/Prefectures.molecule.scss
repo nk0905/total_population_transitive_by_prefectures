@@ -1,0 +1,29 @@
+.prefectures {
+  margin: 20px;
+  .prefectures-label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .prefecutures-list {
+    display: flex;
+    flex-wrap: wrap;
+    .list-one {
+      width: 150px;
+      margin: 5px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .prefectures-label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .prefecutures-list {
+      display: flex;
+      flex-wrap: wrap;
+      .list-one {
+        font-size: 12px;
+        width: 70px;
+      }
+    }
+  }
+}
