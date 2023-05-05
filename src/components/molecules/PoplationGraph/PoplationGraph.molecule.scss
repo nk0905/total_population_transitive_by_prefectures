@@ -1,0 +1,33 @@
+.population-graph {
+  margin: 20px;
+  .population-graph-label {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .population-graph-tab {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    label {
+      flex: 1 1;
+      order: -1;
+      padding: 10px 0;
+      background-color: #f2f2f2;
+      color: #999;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+      input {
+        display: none;
+      }
+    }
+    label:hover {
+      opacity: 0.8;
+    }
+    label:has(:checked) {
+      border-bottom: 4px solid #2589d0;
+      color: #2589d0;
+    }
+  }
+}
