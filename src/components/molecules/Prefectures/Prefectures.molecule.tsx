@@ -17,7 +17,9 @@ export interface PrefecturesPropsType {
 const Prefectures: React.FC<PrefecturesPropsType> = ({ prefecturesData, events }) => {
   return (
     <div className="prefectures">
-      <p className="prefectures-label">都道府県</p>
+      <p className="prefectures-label">
+        <span>01</span>都道府県を選択
+      </p>
       <div className="prefecutures-list">
         {prefecturesData.map((data, index) => {
           return (

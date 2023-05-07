@@ -272,7 +272,7 @@ const PoplationTransition: React.FC = () => {
 
   const props: PoplationTransitionTemplatePropsType = {
     headerProps: {
-      title: '都道府県別の総人口推移グラフ',
+      title: '都道府県別の人口推移グラフ',
     },
     prefectureProps: {
       prefecturesData: prefecturesData,

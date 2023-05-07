@@ -43,9 +43,15 @@ const PoplationGraph: React.FC<PopulationGraphPropsType> = ({
   populationData,
   events,
 }) => {
+  if (populationData.length === 0) {
+    return <></>;
+  }
   const targetData = populationData.filter((data) => data.label === checkedPopulationKinds);
   return (
     <div className="population-graph">
+      <p className="population-graph-label">
+        <span>02</span>表示するグラフを選択
+      </p>
       <div className="population-graph-tab">
         <label>
           <input
