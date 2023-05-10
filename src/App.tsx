@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import PoplationTransition from './pages/PoplationTransition.page';
 
 function App() {
