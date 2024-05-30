@@ -44,3 +44,4 @@ $ npm run format:fix
   - molecules: 画面の部品
   - templates: 画面構造
 - pages: api の通信や、画面で使用する関数や変数を定義する
+- types: 各コンポーネントでデータやpropsの型定義をする
