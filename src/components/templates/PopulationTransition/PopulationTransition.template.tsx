@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../molecules/Header/Header.molecules';
+import Header from '../../molecules/Header/Header.molecule';
 import { PopulationTransitionTemplatePropsType } from '../../../types/populationTransition.type';
 
 const PopulationTransitionTemplate: React.FC<PopulationTransitionTemplatePropsType> = ({
