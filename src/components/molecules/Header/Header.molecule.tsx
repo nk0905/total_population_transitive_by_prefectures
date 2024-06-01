@@ -1,9 +1,9 @@
 import React from 'react';
-import './Header.molecules.scss';
+import headerStyle from './Header.molecule.module.scss';
 import { HeaderPropsType } from '../../../types/header.type';
 
 const HeaderComponent: React.FC<HeaderPropsType> = ({ title }) => {
-  return <header className="header">{title}</header>;
+  return <header className={headerStyle.header}>{title}</header>;
 };
 
 const Header = React.memo(HeaderComponent);
