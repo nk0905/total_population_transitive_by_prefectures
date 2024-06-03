@@ -1,0 +1,79 @@
+// PC
+.populationGraph {
+  margin-top: 20px;
+
+  > .populationGraphLabel {
+    position: relative;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 16px 0 16px 130px;
+    border: 2px solid #000;
+
+    &:before {
+      position: absolute;
+      top: -150%;
+      left: -100px;
+      width: 200px;
+      height: 300%;
+      content: '';
+      transform: rotate(25deg);
+      background: #000;
+    }
+
+    > .numberLabel {
+      font-size: 40px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      padding-left: 24px;
+      color: #fff;
+    }
+  }
+
+  > .populationGraphTab {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+
+    > .tabLabel {
+      flex: 1 1;
+      order: -1;
+      padding: 10px 0;
+      background-color: #f2f2f2;
+      color: #999;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:has(:checked) {
+        border-bottom: 4px solid #2589d0;
+        color: #2589d0;
+      }
+
+      > .tabInput {
+        display: none;
+      }
+    }
+  }
+}
+
+// SP
+@media screen and (max-width: 767px) {
+  .populationGraph {
+
+    > .populationGraphLabel {
+        padding: 8px 0 8px 130px;
+
+      > .numberLabel {
+        font-size: 32px;
+      }
+    }
+  }
+}
