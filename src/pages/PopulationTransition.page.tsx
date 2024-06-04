@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PopulationTransitionTemplatePropsType } from '../types/populationTransition.type';
 import PopulationTransitionTemplate from '../components/templates/PopulationTransition/PopulationTransition.template';
 import { mockPopulationData } from '../services/mock';
@@ -7,8 +7,10 @@ import { deepCopy } from '../services/utils';
 import { PopulationDataType, PopulationKindsType } from '../types/populationGraph.type';
 import { filterPopulationData } from '../logics/populationTransition.logic';
 import { getPrefectures } from '../api/prefectures.api';
+import { LoadingContext } from '../contexts/Loading.context';
 
 const PopulationTransition: React.FC = () => {
+  const { isLoading, setLoading } = useContext(LoadingContext);
   // 都道府県一覧画面のstate
   const [prefecturesData, setPrefecturesData] = useState<PrefecturesDataType[]>([]);
   // 人口グラフの種類のstate
@@ -18,18 +20,23 @@ const PopulationTransition: React.FC = () => {
   const [populationData, setPopulationData] = useState<PopulationDataType[]>([]);
 
   useEffect(() => {
-    getPrefectures().then((res) => {
-      setPrefecturesData((prevList) => {
+    setLoading(true);
+    getPrefectures()
+      .then((res) => {
         const newPrefecturesData: PrefecturesDataType[] = res.result.map((prefecture) => {
           return { ...prefecture, isChecked: false };
         });
-        if (JSON.stringify(prevList) === JSON.stringify(newPrefecturesData)) {
-          return prevList;
-        } else {
-          return newPrefecturesData;
-        }
+        setPrefecturesData((prevList) => {
+          if (JSON.stringify(prevList) === JSON.stringify(newPrefecturesData)) {
+            return prevList;
+          } else {
+            return newPrefecturesData;
+          }
+        });
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    });
   }, []);
 
   // 都道府県一覧画面の関数
@@ -66,6 +73,7 @@ const PopulationTransition: React.FC = () => {
   };
 
   const props: PopulationTransitionTemplatePropsType = {
+    isLoading: isLoading,
     headerProps: {
       title: '都道府県別の人口推移グラフ',
     },
