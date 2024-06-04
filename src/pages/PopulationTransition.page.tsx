@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PopulationTransitionTemplatePropsType } from '../types/populationTransition.type';
 import PopulationTransitionTemplate from '../components/templates/PopulationTransition/PopulationTransition.template';
 import { mockPopulationData, mockPrefecturesData } from '../services/mock';
@@ -6,6 +6,7 @@ import { PrefecturesDataType } from '../types/prefectures.type';
 import { deepCopy } from '../services/utils';
 import { PopulationDataType, PopulationKindsType } from '../types/populationGraph.type';
 import { filterPopulationData } from '../logics/populationTransition.logic';
+import { getHello } from '../api/hello.api';
 
 const PopulationTransition: React.FC = () => {
   // 都道府県一覧画面のstate
@@ -16,6 +17,15 @@ const PopulationTransition: React.FC = () => {
     useState<PopulationKindsType>('総人口');
   // 人口データのstate
   const [populationData, setPopulationData] = useState<PopulationDataType[]>([]);
+
+  // TODO RESASのAPIを使用するとき削除する
+  useEffect(() => {
+    getHello()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => console.log(e));
+  }, []);
 
   // 都道府県一覧画面の関数
   const handleChangePrefecturesCheckbox = (index: number) => {
