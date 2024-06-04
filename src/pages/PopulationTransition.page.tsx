@@ -1,30 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { PopulationTransitionTemplatePropsType } from '../types/populationTransition.type';
 import PopulationTransitionTemplate from '../components/templates/PopulationTransition/PopulationTransition.template';
-import { mockPopulationData, mockPrefecturesData } from '../services/mock';
+import { mockPopulationData } from '../services/mock';
 import { PrefecturesDataType } from '../types/prefectures.type';
 import { deepCopy } from '../services/utils';
 import { PopulationDataType, PopulationKindsType } from '../types/populationGraph.type';
 import { filterPopulationData } from '../logics/populationTransition.logic';
-import { getHello } from '../api/hello.api';
+import { getPrefectures } from '../api/prefectures.api';
 
 const PopulationTransition: React.FC = () => {
   // 都道府県一覧画面のstate
-  const [prefecturesData, setPrefecturesData] =
-    useState<PrefecturesDataType[]>(mockPrefecturesData);
+  const [prefecturesData, setPrefecturesData] = useState<PrefecturesDataType[]>([]);
   // 人口グラフの種類のstate
   const [checkedPopulationKinds, setCheckedPopulationKinds] =
     useState<PopulationKindsType>('総人口');
   // 人口データのstate
   const [populationData, setPopulationData] = useState<PopulationDataType[]>([]);
 
-  // TODO RESASのAPIを使用するとき削除する
   useEffect(() => {
-    getHello()
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => console.log(e));
+    getPrefectures().then((res) => {
+      setPrefecturesData((prevList) => {
+        const newPrefecturesData: PrefecturesDataType[] = res.result.map((prefecture) => {
+          return { ...prefecture, isChecked: false };
+        });
+        if (JSON.stringify(prevList) === JSON.stringify(newPrefecturesData)) {
+          return prevList;
+        } else {
+          return newPrefecturesData;
+        }
+      });
+    });
   }, []);
 
   // 都道府県一覧画面の関数
@@ -81,4 +86,5 @@ const PopulationTransition: React.FC = () => {
   return <PopulationTransitionTemplate {...props} />;
 };
 
+PopulationTransition.whyDidYouRender = true;
 export default PopulationTransition;
