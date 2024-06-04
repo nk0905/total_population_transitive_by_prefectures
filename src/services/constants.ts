@@ -4,3 +4,5 @@ export const populationKinds = {
   productionAge: '生産年齢人口',
   geriatric: '老年人口',
 } as const;
+
+export const All_CITY_PARAM = '-';

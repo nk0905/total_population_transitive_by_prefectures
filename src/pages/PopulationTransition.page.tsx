@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PopulationTransitionTemplatePropsType } from '../types/populationTransition.type';
 import PopulationTransitionTemplate from '../components/templates/PopulationTransition/PopulationTransition.template';
-import { mockPopulationData } from '../services/mock';
 import { PrefecturesDataType } from '../types/prefectures.type';
 import { deepCopy } from '../services/utils';
 import { PopulationDataType, PopulationKindsType } from '../types/populationGraph.type';
 import { filterPopulationData } from '../logics/populationTransition.logic';
 import { getPrefectures } from '../api/prefectures.api';
 import { LoadingContext } from '../contexts/Loading.context';
+import { GetPopulationParams } from '../api/types/population.type';
+import { All_CITY_PARAM } from '../services/constants';
+import { getPopulation } from '../api/population.api';
 
 const PopulationTransition: React.FC = () => {
   const { isLoading, setLoading } = useContext(LoadingContext);
@@ -57,14 +59,26 @@ const PopulationTransition: React.FC = () => {
       return;
     }
 
-    mockPopulationData.result.data.map((populationData) => {
-      editPopulationData.push({
-        ...populationData,
-        prefName: editPrefecturesData[index].prefName,
+    // 新たに都道府県がチェックされた場合、その都道府県の人口データを取得する
+    const params: GetPopulationParams = {
+      cityCode: All_CITY_PARAM,
+      prefCode: editPrefecturesData[index].prefCode,
+    };
+    setLoading(true);
+    getPopulation(params)
+      .then((res) => {
+        res.result.data.map((populationData) => {
+          editPopulationData.push({
+            ...populationData,
+            prefName: editPrefecturesData[index].prefName,
+          });
+        });
+        setPrefecturesData(editPrefecturesData);
+        setPopulationData(editPopulationData);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    });
-    setPrefecturesData(editPrefecturesData);
-    setPopulationData(editPopulationData);
   };
 
   // 都道府県別人口グラフ画面の関数
