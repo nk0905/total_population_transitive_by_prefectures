@@ -1,0 +1,65 @@
+// PC
+.prefectures {
+  margin-top: 20px;
+  > .prefecturesLabel {
+    position: relative;
+    overflow: hidden;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 16px 0 16px 130px;
+    border: 2px solid #000;
+
+    &:before {
+      position: absolute;
+      top: -150%;
+      left: -100px;
+      width: 200px;
+      height: 300%;
+      content: '';
+      transform: rotate(25deg);
+      background: #000;
+    }
+
+    > .numberLabel {
+      font-size: 40px;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+      padding-left: 24px;
+      color: #fff;
+    }
+  }
+
+  > .prefecturesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    > .listOne {
+      width: 90px;
+      > .checkbox,
+      > .prefectureLabel {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// SP
+@media screen and (max-width: 767px) {
+  .prefectures {
+    > .prefecturesLabel {
+      font-size: 16px;
+      padding: 8px 0 8px 130px;
+      > .numberLabel {
+        font-size: 32px;
+      }
+    }
+    > .prefecturesList {
+      > .listOne {
+        font-size: 12px;
+        width: 70px;
+      }
+    }
+  }
+}
