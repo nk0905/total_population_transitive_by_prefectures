@@ -7,14 +7,3 @@ export const resasApi = axios.create({
   responseType: 'json',
   timeout: 30000,
 });
-
-resasApi.interceptors.request.use((config) => {
-  return config;
-});
-
-resasApi.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => Promise.reject(error.response?.data),
-);
