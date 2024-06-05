@@ -25,16 +25,19 @@ const PopulationTransition: React.FC = () => {
     setLoading(true);
     getPrefectures()
       .then((res) => {
-        const newPrefecturesData: PrefecturesDataType[] = res.result.map((prefecture) => {
-          return { ...prefecture, isChecked: false };
-        });
-        setPrefecturesData((prevList) => {
-          if (JSON.stringify(prevList) === JSON.stringify(newPrefecturesData)) {
-            return prevList;
-          } else {
-            return newPrefecturesData;
-          }
-        });
+        // axiosのinterceptorsの影響で、エラーがあったときres.resultはundefinedになる。
+        if (res.result) {
+          const newPrefecturesData: PrefecturesDataType[] = res.result.map((prefecture) => {
+            return { ...prefecture, isChecked: false };
+          });
+          setPrefecturesData((prevList) => {
+            if (JSON.stringify(prevList) === JSON.stringify(newPrefecturesData)) {
+              return prevList;
+            } else {
+              return newPrefecturesData;
+            }
+          });
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -67,14 +70,17 @@ const PopulationTransition: React.FC = () => {
     setLoading(true);
     getPopulation(params)
       .then((res) => {
-        res.result.data.map((populationData) => {
-          editPopulationData.push({
-            ...populationData,
-            prefName: editPrefecturesData[index].prefName,
+        // axiosのinterceptorsの影響で、エラーがあったときres.resultはundefinedになる。
+        if (res.result) {
+          res.result.data.map((populationData) => {
+            editPopulationData.push({
+              ...populationData,
+              prefName: editPrefecturesData[index].prefName,
+            });
           });
-        });
-        setPrefecturesData(editPrefecturesData);
-        setPopulationData(editPopulationData);
+          setPrefecturesData(editPrefecturesData);
+          setPopulationData(editPopulationData);
+        }
       })
       .finally(() => {
         setLoading(false);

@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import fetch from 'node-fetch';
 
-// TODO 環境変数がないときのエラーハンドリングをする
 const API_URL = process.env.RESAS_API_URL;
 const API_KEY = process.env.RESAS_API_KEY ?? '';
 
